@@ -43,7 +43,7 @@ for data in our_json_data:
 
 our_file.close()
 
-
+os.mkdir(savedir)
 for i,photo in enumerate(photos['photo']):
     url_q = photo['url_q']
     filepath = savedir + '/' + photo['id'] + '.jpg'
