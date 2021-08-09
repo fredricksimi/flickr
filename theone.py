@@ -10,7 +10,7 @@ secret = "543c6db6d420ed53"
 wait_time = 1
 
 keyname = 'face'
-savedir = "./Faces"
+savedir = "./3Faces"
 
 
 flickr = FlickrAPI(key, secret, format='parsed-json')
@@ -18,11 +18,12 @@ flickr = FlickrAPI(key, secret, format='parsed-json')
 
 result  = flickr.photos.search(
     text = keyname,
-    per_page = 100,
+    per_page = 200,
     media = 'photos',
     sort = 'relevance',
     safe_seach = 1,
-    extras = 'url_q, licence'
+    extras = 'url_q, licence',
+    page = 3,
 )
 
 photos = result['photos']
@@ -38,13 +39,16 @@ for data in our_json_data:
         "title":data['title'],
     }
     new_json = json.dumps(new_structure)
-    our_file = open('2-ourdata.json', 'a')
+    our_file = open('32-ourdata.json', 'a')
     our_file.write(f"{new_json}\n")
 
 our_file.close()
 
+
 os.mkdir(savedir)
 for i,photo in enumerate(photos['photo']):
+    # if os.path.exists(savedir):
+    #     # continue
     url_q = photo['url_q']
     filepath = savedir + '/' + photo['id'] + '.jpg'
     if os.path.exists(filepath):continue
